@@ -1,0 +1,24 @@
+{
+  "name": "demo-error-boundary",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ReasonX7/demo-error-boundary.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ReasonX7/demo-error-boundary/issues"
+  },
+  "homepage": "https://github.com/ReasonX7/demo-error-boundary#readme",
+  "dependencies": {
+    "parcel": "^2.0.0-beta.2",
+    "semantic-ui-css": "^2.4.1",
+    "semantic-ui-react": "^2.0.3"
+  }
+}
