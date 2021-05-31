@@ -1,0 +1,5 @@
+{
+  "name": "@degry/error-boundary",
+  "module": "src/index.ts",
+  "private": true
+}

@@ -1,0 +1,7 @@
+{
+  "name": "@degry/demo-app",
+  "scripts": {
+    "start": "rollup --config ../../rollup.config.js --watch"
+  },
+  "private": true
+}
