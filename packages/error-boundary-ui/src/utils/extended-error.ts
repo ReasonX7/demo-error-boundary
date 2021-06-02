@@ -8,8 +8,8 @@ export interface IExtendedError {
 }
 
 type ExtendedErrorOptions = {
-  uid: string,
-  code: number
+  uid?: string,
+  code?: number
 }
 
 const getUid = () => Math.random().toString(36).substring(7)

@@ -1,8 +1,8 @@
 import React, { ReactNode, useEffect, useState } from 'react'
 
-import { useErrorHandler, ErrorBoundary, ErrorTrigger } from '@degry/error-boundary'
-import { Fallback } from '@degry/error-boundary-ui/desktop'
-import { ExtendedError } from '@degry/error-boundary-ui'
+import { useErrorHandler, ErrorBoundary, ErrorTrigger, useError } from '@degry/error-boundary'
+import { Fallback, ErrorFallback, ErrorFallbackLink, ErrorFallbackFooter } from '@degry/error-boundary-ui/desktop'
+import { ExtendedError, IExtendedError } from '@degry/error-boundary-ui'
 
 const ErrorThrower = () => {
   const [falsy, setFalsy] = useState(false)
@@ -25,13 +25,31 @@ const ErrorThrower = () => {
       <button onClick={() => setFalsy(true)}>Throw Suspense Error</button>
       <button onClick={() => setTrigger(true)}>ErrorTrigger</button>
       <button onClick={() => handleError(new ExtendedError('This error was set via errorHandler hook'))}>useErrorHandler</button>
+      <button onClick={() => handleError(new ExtendedError('Custom Error', { code: 200_000 }))}>Custom Error</button>
     </>
   )
 }
 
+const CustomFallback = () => {
+  const error = useError() as IExtendedError
+
+  switch (error.code) {
+    case 200_000:
+      return (
+        <ErrorFallback code={error.code} message={error.message}>
+          <ErrorFallbackFooter>
+            <ErrorFallbackLink to="/overview">Go to Overview</ErrorFallbackLink>
+          </ErrorFallbackFooter>
+        </ErrorFallback>
+      )
+    default:
+      return <Fallback/>
+  }
+}
+
 const SuspenseExample = (): ReactNode => {
   return (
-    <ErrorBoundary fallback={<Fallback/>}>
+    <ErrorBoundary fallback={<CustomFallback/>}>
       <ErrorThrower/>
     </ErrorBoundary>
   )
