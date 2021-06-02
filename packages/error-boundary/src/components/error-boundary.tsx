@@ -30,8 +30,6 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
     if (this.props.onError) {
       this.props.onError(error, errorInfo)
     }
-    console.log(error, errorInfo)
-
   }
 
   public componentDidCatch(error: Error, errorInfo: ErrorInfo) {
@@ -40,7 +38,7 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
 
   public render() {
     return (
-      <ErrorBoundaryContext.Provider value={{ setError: this.setError }}>
+      <ErrorBoundaryContext.Provider value={{ error: this.state.error, setError: this.setError }}>
         {this.state.error ? this.props.fallback : this.props.children}
       </ErrorBoundaryContext.Provider>
     )

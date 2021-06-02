@@ -1,0 +1,5 @@
+{
+  "name": "@degry/error-boundary-ui--fallback",
+  "private": true,
+  "module": "../src/desktop/index.ts"
+}
