@@ -3,7 +3,9 @@ import React, { ReactNode, Component, ErrorInfo } from 'react'
 import ErrorBoundaryContext from '../contexts/error-boundary-context'
 
 type ErrorBoundaryProps = {
+  id?: 'global' | string,
   onError?: (error: Error, errorInfo?: ErrorInfo) => void,
+  error?: any,
   children: ReactNode,
   fallback: ReactNode
 }
