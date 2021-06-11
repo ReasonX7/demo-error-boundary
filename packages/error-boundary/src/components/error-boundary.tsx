@@ -7,7 +7,8 @@ type ErrorBoundaryProps = {
   onError?: (error: Error, errorInfo?: ErrorInfo) => void,
   error?: any,
   children: ReactNode,
-  fallback: ReactNode
+  fallback: ReactNode,
+  plugin: ReactNode
 }
 
 type ErrorBoundaryState = {
@@ -41,7 +42,10 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
   public render() {
     return (
       <ErrorBoundaryContext.Provider value={{ error: this.state.error, setError: this.setError }}>
-        {this.state.error ? this.props.fallback : this.props.children}
+        <>
+          {this.props.plugin || null}
+          {this.state.error ? this.props.fallback : this.props.children}
+        </>
       </ErrorBoundaryContext.Provider>
     )
   }

@@ -1,8 +1,10 @@
 import React, { ReactNode, useEffect, useState } from 'react'
 
-import { useErrorHandler, ErrorBoundary, ErrorTrigger, useError } from '@degry/error-boundary'
-import { Fallback, ErrorFallback, ErrorFallbackLink, ErrorFallbackFooter } from '@degry/error-boundary-ui/desktop'
+import { useErrorHandler, ErrorBoundary, ExternalErrorPlugin, ExternalErrorStore, ErrorTrigger, useError } from '@degry/error-boundary'
+import { Fallback, ErrorFallback, ErrorFallbackLink, ErrorFallbackFooter, ErrorFallbackButton } from '@degry/error-boundary-ui/desktop'
 import { ExtendedError, IExtendedError } from '@degry/error-boundary-ui'
+
+const visualError = new ExternalErrorStore()
 
 const ErrorThrower = () => {
   const [falsy, setFalsy] = useState(false)
@@ -26,6 +28,7 @@ const ErrorThrower = () => {
       <button onClick={() => setTrigger(true)}>ErrorTrigger</button>
       <button onClick={() => handleError(new ExtendedError('This error was set via errorHandler hook'))}>useErrorHandler</button>
       <button onClick={() => handleError(new ExtendedError('Custom Error', { code: 200_000 }))}>Custom Error</button>
+      <button onClick={() => visualError.setError(new ExtendedError('External Error', { code: 200_001 }))}>External Error</button>
     </>
   )
 }
@@ -42,6 +45,14 @@ const CustomFallback = () => {
           </ErrorFallbackFooter>
         </ErrorFallback>
       )
+    case 200_001:
+      return (
+        <ErrorFallback code={error.code} message={error.message}>
+          <ErrorFallbackFooter>
+            <ErrorFallbackButton onClick={() => visualError.clearError()}>Clear External Error</ErrorFallbackButton>
+          </ErrorFallbackFooter>
+        </ErrorFallback>
+      )
     default:
       return <Fallback/>
   }
@@ -49,7 +60,10 @@ const CustomFallback = () => {
 
 const SuspenseExample = (): ReactNode => {
   return (
-    <ErrorBoundary fallback={<CustomFallback/>}>
+    <ErrorBoundary
+      fallback={<CustomFallback/>}
+      plugin={<ExternalErrorPlugin store={visualError}/>}
+    >
       <ErrorThrower/>
     </ErrorBoundary>
   )

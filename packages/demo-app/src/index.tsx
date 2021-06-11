@@ -13,7 +13,7 @@ const App = () => (
   <BrowserRouter>
     <Container>
       <Navigation>
-        <Pages />
+        <Pages/>
       </Navigation>
     </Container>
   </BrowserRouter>

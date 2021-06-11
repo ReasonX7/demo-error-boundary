@@ -34,7 +34,8 @@ const config = {
     css({ output: 'styles.css' }),
     resolve({
       extensions: ['.js', '.ts', '.tsx'],
-      browser: true
+      browser: true,
+      preferBuiltins: false
     }),
     commonjs(),
     babel({
